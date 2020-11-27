@@ -11,4 +11,4 @@ def get_smile(user_data):
     return user_data['emoji']
 
 def main_keyboard():
-    return ReplyKeyboardMarkup([['Discgolf', 'Ultimate'], [ 'Badminton' ], [KeyboardButton('Мои координаты', request_location=True)]])
+    return ReplyKeyboardMarkup([['Discgolf', 'Ultimate'], [ 'Badminton', 'About Yourself' ], [KeyboardButton('Мои координаты', request_location=True)]])
