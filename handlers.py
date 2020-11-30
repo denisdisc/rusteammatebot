@@ -1,14 +1,17 @@
 
 from utils import get_smile, main_keyboard
 from random import choice
-
+from db import db, get_or_create_user
+ 
 
 def greet_user(update, context):
     print('Вызван /start')
+    user = get_or_create_user(db, update.effective_user, update.message.chat.id)
     context.user_data['emoji'] = get_smile(context.user_data)
     update.message.reply_text(f'Привет! {context.user_data["emoji"]} Найди партнера(ов) для игры с помощю команды /sport')
 
 def talk_to_me(update, context):
+    user = get_or_create_user(db, update.effective_user, update.message.chat.id)
     user_text = update.message.text 
     print(user_text)
     update.message.reply_text(user_text)
