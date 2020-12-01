@@ -2,10 +2,10 @@ from random import choice
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
 from handlers import (greet_user, sport_type, user_coordinates, find_teammate,
                         talk_to_me)
-
 from questionnaire import form_start, user_name, bot_rating, anketa_comment, anketa_skip, anketa_dontknow
 import logging
 import config
+
 
 logging.basicConfig(filename='bot.log', level=logging.INFO)
 sports_list = {'ultimate', 'discgolf', 'badminton'}
@@ -16,12 +16,12 @@ def main():
     dp = mybot.dispatcher
 
     anketa = ConversationHandler(
-        entry_points=[MessageHandler(Filters.regex('^(About Yourself)$'), form_start)],
+        entry_points=[MessageHandler(Filters.regex('^(Заполнить анкету)$'), form_start)],
         states={
             "name": [MessageHandler(Filters.text, user_name)],
             "rating": [MessageHandler(Filters.regex('^(1|2|3|4|5)$'), bot_rating)],
             "comment": [
-                CommandHandler('skip', anketa_skip),
+                CommandHandler("skip", anketa_skip),
                 MessageHandler(Filters.text, anketa_comment)
             ]
         },

@@ -1,5 +1,5 @@
-
 from utils import get_smile, main_keyboard
+from telegram import ReplyKeyboardMarkup
 from random import choice
 from db import db, get_or_create_user
  
@@ -8,7 +8,9 @@ def greet_user(update, context):
     print('Вызван /start')
     user = get_or_create_user(db, update.effective_user, update.message.chat.id)
     context.user_data['emoji'] = get_smile(context.user_data)
-    update.message.reply_text(f'Привет! {context.user_data["emoji"]} Найди партнера(ов) для игры с помощю команды /sport')
+    reply_keyboard = [["Заполнить анкету"], ["/sport"]]
+    return update.message.reply_text(f'Привет! {context.user_data["emoji"]} мне будет проще тебе помочь, если ты заполнишь анкету. Можешь сразу найти компанию для игры из тех кто оставил свои данные',
+                            reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
 
 def talk_to_me(update, context):
     user = get_or_create_user(db, update.effective_user, update.message.chat.id)
