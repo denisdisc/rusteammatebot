@@ -9,8 +9,16 @@ def greet_user(update, context):
     user = get_or_create_user(db, update.effective_user, update.message.chat.id)
     context.user_data['emoji'] = get_smile(context.user_data)
     reply_keyboard = [["Заполнить анкету"], ["/sport"]]
-    return update.message.reply_text(f'Привет! {context.user_data["emoji"]} мне будет проще тебе помочь, если ты заполнишь анкету. Можешь сразу найти компанию для игры из тех кто оставил свои данные',
-                            reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+    welcome_message = ['Ты запустил этого бота командой /start',
+                        '/help - команда, которая всегда поможет разобраться с тем, что умеет бот',
+                        '/anketa - заполни анкету, и я буду помнить какую компанию ты ищешь',
+                        '/news - подпишись, и я буду рассказывать тебе о новостях в любимом спорте',
+                        '/things - продай или купи спортивное снаряжение'
+    ]
+    nl = '\n'
+    return update.message.reply_text(f'Привет! {context.user_data["emoji"]}{nl}{nl.join(welcome_message)}',
+                            #reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+                            )
 
 def talk_to_me(update, context):
     user = get_or_create_user(db, update.effective_user, update.message.chat.id)
